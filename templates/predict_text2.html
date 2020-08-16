@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<h2> The Support Vector Regressor predicts a rent of {{point_est}} €. </h2>
+<h2> The results of the classification model are displayed below </h2>
+<div class="gap-20"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<canvas id="bar-chart" width="1500" height="250"></canvas>
+<script>
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: [{% for item in labels %}
+           "{{ item }}",
+          {% endfor %}],
+      datasets: [
+        {
+          label: " ",
+          backgroundColor: ["#4169E1", "#4169E1", "#4169E1", "#4169E1", "#4169E1"],
+          data: [{% for item in values %}
+           "{{ item }}",
+          {% endfor %}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: false,
+        text: ' '
+      },
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }],
+        xAxes: [{
+            ticks: {
+                fontSize: 20
+            }
+        }]
+    }
+    }
+});
+</script>
+{% endblock %}

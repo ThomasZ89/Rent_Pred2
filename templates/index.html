@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h1> Introduction: Frankfurt Rent Prediction Project</h1>
+<h5> By Thomas Zöllinger </h5>
+<div class="gap-10"></div>
+<h4> For this project {{'{0:,}'.format(len)}} shared apartment advertisements have been scraped from the web in order to be analysed
+    afterwards. Most of the advertisements are not active anymore, so some of the date is incomplete. For example
+    the start and the end of the rent is not shown anymore. However we can still gather a lot of insights from the
+    inactive advertisements as well. The main goal of this project is to analyse what drives rents and see if we can
+    create a sufficient model in order to predict it.</h4>
+<div class="gap-10"></div>
+<h4>
+    This projects has several sites which might interest you. Just open the navigation bar at the top and click on
+    a link:
+</h4>
+<div class="gap-30"></div>
+<h1>
+    Overview
+</h1>
+
+<h4>
+    You can find information about the data and all of the features, that have been extracted.
+</h4>
+<div class="gap-10"></div>
+<h1>
+    Regression Results
+</h1>
+<h4>
+    You can find out what effect the features had and how important they are. You can also see which districts are the
+    most expensive on a map.
+</h4>
+<div class="gap-10"></div>
+<h1>
+    Models
+</h1>
+<h4>
+    A short summary about the models that have been used and their performance
+</h4>
+<div class="gap-10"></div>
+<h1>
+    Rent Prediction from Metadata
+</h1>
+<h4>
+    Enter a valid html and see what the gradient boosting model will predict, given the metadata that was extracted.
+</h4>
+<div class="gap-10"></div>
+<h1>
+    Rent Prediction from Text
+</h1>
+<h4>
+    Enter a valid html and see what the support vector machine will predict, given the text that was extracted.
+    You can also paste your own custom text and see what rent the model will predict for it.
+</h4>
+
+
+
+{% endblock %}

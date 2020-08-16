@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<h1> Prediction</h1>
+<h2> Enter a valid html link into this form, to get a prediction what the rent should be, according to
+    the description of the advertisement</h2>
+    <h2> Valid htmls must be looked up here:
+        <a href="https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html"> https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html</a>
+    </h2>
+<div class="gap-10"></div>
+<form action="{{ url_for('predict_text1')}}"method="post">
+    <input name="predict_text" placeholder="Enter link here" required="required" style="width: 100%;" type="text" />
+    <button class="btn btn-primary btn-block btn-large" type="submit">Predict</button>
+</form>
+<div class="gap-30"></div>
+<h2> You can also enter a custom text too see what rent is associated with it</h2>
+
+<form action="{{ url_for('predict_text2')}}"method="post">
+    <textarea rows = "30" cols = "200" name = "predict_custom_text" placeholder="Enter your text here"></textarea>
+    <button class="btn btn-primary btn-block btn-large" type="submit">Predict</button>
+</form>
+
+
+
+{% endblock %}

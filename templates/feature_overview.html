@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h1> Overview</h1>
+<h2> On this page you can find an overview of the features that have been extracted in order to predict the rent and
+    what their meaning is.
+    Further below is a detailed pandas profiling report where more information about each feature in the dataset is
+    displayed.</h2>
+<div class="gap-10"></div>
+<h2> Before using the data outliers have been filtered out. Therefore only entries with rent between 150 € and 1.200 €
+    and
+    room size between 6 and 60 m² are included. Furthermore rare or non existing categorical variables have been
+    replaced with a dummy (no_info_or_rare). </h2>
+<h2>In addition to that some features are engineered. Like "dauer" is the difference between start and end time. And
+    "status" shows, if the advertisement was active at the time it was scraped. </h2>
+<div class="gap-20"></div>
+<h1> Feature Legend</h1>
+<link>
+<title>Feature Overview Description </title>
+<link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
+<div class=page>
+    {% for table in table1 %}
+    {{ table|safe }}
+    {% endfor %}
+</div>
+<div class="gap-20"></div>
+<h1> Pandas Profiling Report</h1>
+<iframe class="map" , src="/Feature_Exploration" width=100% height="20000"></iframe>
+
+{% endblock %}

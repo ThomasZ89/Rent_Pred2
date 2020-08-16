@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<h1> Prediction</h1>
+<h2> Enter a valid html link into this form, to get a prediction what the rent should be, according to the metadata</h2>
+<h2> Valid htmls must be looked up here:
+    <a href="https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html"> https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html</a>
+</h2>
+<div class="gap-10"></div>
+
+
+
+<form action="{{ url_for('predict2')}}"method="post">
+    <input name="predict" placeholder="Enter link here" required="required" size="400" type="text" />
+    <button class="btn btn-primary btn-block btn-large" type="submit">Predict</button>
+</form>
+<div class="gap-30"></div>
+<div>
+    <title>Simple tables</title>
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
+    <p> </p>
+    <h2> Metadata was extracted for the following link: {{ titles }} </h2>
+    <div class=page>
+        {% for table in tables %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+</div>
+<div>
+<h1> Rent prediction based on metadata </h1>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+<left>
+    <canvas height="400" id="chart1" width="800"></canvas>
+    <script>
+      // bar chart data
+      var barData = {
+        labels : [
+          {% for item in labels3 %}
+           "{{ item }}",
+          {% endfor %}
+	],
+
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          data : [
+            {% for item in pred_values %}
+               "{{ item }}",
+              {% endfor %}
+	    ]
+          }
+        ]
+      }
+
+     // get bar chart canvas
+     var mychart1 = document.getElementById("chart1").getContext("2d");
+
+       steps = {{max2/100}}
+       max = {{max2}}
+
+     // draw bar chart
+     new Chart(mychart1).Bar(barData, {
+       scaleOverride: true,
+       scaleSteps: steps,
+       scaleStepWidth: 100,
+       scaleStartValue: 0,
+       scaleShowVerticalLines: true,
+       scaleShowGridLines : true,
+       barShowStroke : true,
+       scaleShowLabels: true,
+       scaleFontSize: 18
+       }
+     );
+
+    </script>
+</left>
+</div>
+<div class="gap-30"></div>
+<h1> Shap Values </h1>
+<h2>
+    To get a feeling for what has effected the gradient boosting model the most for it's prediction
+    we can visualize the impact with shap values
+</h2>
+<img src="\static\shap_values.png" alt="User Image6">
+
+<h1> Custom Prediction </h1>
+<h2>
+    Adjust the values from the advertisement above and see how the changes will effect the prediction
+</h2>
+<div class="gap-20"></div>
+<div style="width: 100%;">
+    <form action="{{ url_for('predict3')}}" method="post">
+        <button class="btn btn-primary btn-block btn-large" type="submit">Predict Custom</button>
+        <div style="width: 50%; float: left;">
+            <label for="lname">Zimmergröße</label>
+            <input  type="number" id="lname" name="zimmergröße" value= {{zimmer_var}} >
+
+            <label for="PLZ">PLZ</label>
+            <select name="PLZ" id="PLZ">
+                <option value="{{plz_var}}">{{plz_var}}</option>
+                {% for each in plz_list %}
+                <option value="{{each}}">{{each}} </option>
+                {% endfor %}
+            </select>
+
+        <label for="Buildings">Buildings</label>
+        <select name="buildings" id="Buildings">
+            <option value="{{building_var}}">{{building_var}}</option>
+            {% for each in building_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="Personen">Personen</label>
+        <input  type="number" id="Personen" name="personen" value= {{person_var}} >
+
+        <label for="bed">Bed</label>
+        <select name="bed" id="bed">
+            <option value="{{bed_var}}">{{bed_var}}</option>
+            {% for each in bed_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="fire">Fire</label>
+        <select name="fire" id="fire">
+            <option value="{{fire_var}}">{{fire_var}}</option>
+            {% for each in fire_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="status">Status</label>
+        <select name="status" id="status">
+            <option value="{{status_var}}">{{status_var}}</option>
+            {% for each in status_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="rauchen">Rauchen</label>
+        <select name="rauchen" id="rauchen">
+            <option value="{{rauchen_var}}">{{rauchen_var}}</option>
+            {% for each in rauchen_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="stock">Stock</label>
+        <select name="stock" id="stock">
+            <option value="{{stock_var}}">{{stock_var}}</option>
+            {% for each in stock_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="car">Car</label>
+        <select name="car" id="car">
+            <option value="{{car_var}}">{{car_var}}</option>
+            {% for each in car_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="straße">Straße</label>
+        <select name="straße" id="straße">
+            <option value="{{straße_var}}">{{straße_var}}</option>
+            {% for each in straße_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="wohnung">Wohnung</label>
+        <input  type="number" id="wohnung" name="wohnung" value= {{wohnung_var}} >
+
+        <label for="bus">Bus</label>
+        <input  type="number" id="bus" name="bus" value= {{bus_var}} >
+
+        <label for="dauer">Dauer</label>
+        <input  type="number" id="dauer" name="dauer" value= {{dauer_var}} >
+
+        <label for="ablösevereinbarung">Ablösevereinbarung</label>
+        <input  type="number" id="ablösevereinbarung" name="ablösevereinbarung" value= {{abloese_var}} >
+
+        </div>
+        <div style="margin-left: 50%;">
+        <label for="beruf_wg">Beruf_wg</label>
+        <select name="beruf_wg" id="beruf_wg">
+            <option value="{{beruf_wg}}">{{beruf_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="studenten_wg">Studenten_wg</label>
+        <select name="studenten_wg" id="studenten_wg">
+            <option value="{{studenten_wg}}">{{studenten_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="spuelmaschine">Spuelmaschine</label>
+        <select name="spülmaschine" id="spuelmaschine">
+            <option value="{{spuelmaschine}}">{{spuelmaschine}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="parkett">Parkett</label>
+        <select name="parkett" id="parkett">
+            <option value="{{parkett}}">{{parkett}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="keller">Keller</label>
+        <select name="keller" id="keller">
+            <option value="{{keller}}">{{keller}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="balkon">Balkon</label>
+        <select name="balkon" id="balkon">
+            <option value="{{balkon}}">{{balkon}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="aufzug">Aufzug</label>
+        <select name="aufzug" id="aufzug">
+            <option value="{{aufzug}}">{{aufzug}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="fliesen">Fliesen</label>
+        <select name="fliesen" id="fliesen">
+            <option value="{{fliesen}}">{{fliesen}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="fussbodenheizung">Fussbodenheizung</label>
+        <select name="fußbodenheizung" id="fussbodenheizung">
+            <option value="{{fussbodenheizung}}">{{fussbodenheizung}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="gemischt_wg">Gemischt_wg</label>
+        <select name="gemischt_wg" id="gemischt_wg">
+            <option value="{{gemischt_wg}}">{{gemischt_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="waschmaschine">Waschmaschine</label>
+        <select name="waschmaschine" id="waschmaschine">
+            <option value="{{waschmaschine}}">{{waschmaschine}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="teppich">Teppich</label>
+        <select name="teppich" id="teppich">
+            <option value="{{teppich}}">{{teppich}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="kabel">Kabel</label>
+        <select name="kabel" id="kabel">
+            <option value="{{kabel}}">{{kabel}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="dusche">Dusche</label>
+        <select name="dusche" id="dusche">
+            <option value="{{dusche}}">{{dusche}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="pvc">PVC</label>
+        <select name="pvc" id="pvc">
+            <option value="{{pvc}}">{{pvc}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="badewanne">Badewanne</label>
+        <select name="badewanne" id="badewanne">
+            <option value="{{badewanne}}">{{badewanne}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="zweck_wg">Zweck_wg</label>
+        <select name="zweck_wg" id="zweck_wg">
+            <option value="{{zweck_wg}}">{{zweck_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="laminat">Laminat</label>
+        <select name="laminat" id="laminat">
+            <option value="{{laminat}}">{{laminat}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="garten">Garten</label>
+        <select name="garten" id="garten">
+            <option value="{{garten}}">{{garten}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="azubi_wg">Azubi_wg</label>
+        <select name="azubi_wg" id="azubi_wg">
+            <option value="{{azubi_wg}}">{{azubi_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="satellit">Satellit</label>
+        <select name="satellit" id="satellit">
+            <option value="{{satellit}}">{{satellit}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="terrasse">Terrasse</label>
+        <select name="terrasse" id="terrasse">
+            <option value="{{terrasse}}">{{terrasse}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="dielen">Dielen</label>
+        <select name="dielen" id="dielen">
+            <option value="{{dielen}}">{{dielen}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="frauen_wg">Frauen_wg</label>
+        <select name="frauen_wg" id="frauen_wg">
+            <option value="{{frauen_wg}}">{{frauen_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="keine_zweck_wg">Keine_zweck_wg</label>
+        <select name="keine_zweck_wg" id="keine_zweck_wg">
+            <option value="{{keine_zweck_wg}}">{{keine_zweck_wg}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+
+        <label for="fahrradkeller">Fahrradkeller</label>
+        <select name="fahrradkeller" id="fahrradkeller">
+            <option value="{{fahrradkeller}}">{{fahrradkeller}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="gartenmitbenutzung">Gartenmitbenutzung</label>
+        <select name="gartenmitbenutzung" id="gartenmitbenutzung">
+            <option value="{{gartenmitbenutzung}}">{{gartenmitbenutzung}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+
+        <label for="haustiere">Haustiere</label>
+        <select name="haustiere" id="haustiere">
+            <option value="{{haustiere}}">{{haustiere}}</option>
+            {% for each in bool_list %}
+            <option value="{{each}}">{{each}} </option>
+            {% endfor %}
+        </select>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+{% endblock %}

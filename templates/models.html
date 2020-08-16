@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+<h1> Model Overview</h1>
+<div class="gap-10"></div>
+<h2> For the prediction with metadata the gradient boosting library Catboost and for the prediction based on text
+a Support Vector Machine from sklearn has been used.</h2>
+<div class="gap-30"></div>
+<h1> Catboost</h1>
+
+<h2> Currently the model hast the following specification: </h2>
+<h2> CatBoostRegressor(iterations=4000, depth=12, loss_function='RMSE', early_stopping_rounds=30)</h2>
+<h2> This results in a RMSE of 66.45 in the validation set (25% of data). Which means the average estimation is about 66 Euros off.</h2>
+<h2> In general the RMSE seems to be pretty high, which means there are a lot of factors that are not explained by
+     the metadata. Looking at some observations in detail, often times we can find missing or even false data
+    (for example the rent is only on a weekly basis).</h2>
+<h2> You can see in the scatterplot below how the predicted values turned out in relation to the observed ones in the test dataset</h2>
+<div class="gap-20"></div>
+   <canvas id="myChart1" width="100%" height="35"></canvas>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+   <script>
+   new Chart.Scatter(document.getElementById("myChart1"), {
+   type: 'scatter',
+   data: {
+     datasets: [{
+       label: '',
+       data: {{ data }},
+       showLine: false,
+       borderColor: "blue",
+       backgroundColor: "blue"
+     }]},
+   options: {
+    label: {
+        display: false},
+    scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Real rent'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Predicted rent'
+          }
+        }]
+  }
+
+   }
+ });
+  </script>
+
+<div class="gap-20"></div>
+<h2> Here is a histogram of the prediction errors. They look somewhat normally distributed</h2>
+
+<div id='myDiv1'><!-- Plotly chart will be drawn inside this DIV --></div>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script>
+
+var x = [{% for item in diff1 %}
+           "{{ item }}",
+          {% endfor %}];
+
+
+var trace = {
+    x: x,
+    type: 'histogram',
+  };
+var data = [trace];
+var layout = {
+    bargap: 0.05};
+Plotly.newPlot('myDiv1', data, layout);
+
+</script>
+
+<div class="gap-30"></div>
+<h1> Support Vector Machine</h1>
+<h2> Two models have been created here, a svm classifier and a svm regressor.</h2>
+<h2> Before running the models we can preprocess the text.</h2>
+<h2> For the raw text we get an accuracy of 0.414 and the following confusion matrix:</h2>
+<img src="static/confusion_matrix_svm.png" alt="confusion_matrix_svm.png">
+<h2> We can see that most of the times the model has the right tendency, even if it does not predict the right class.</h2>
+<h2> Now we remove stopwords, special characters, umlauts and do lemmatization.</h2>
+<h2> For the processed text we get an accuracy of 0.432 and the following confusion matrix:</h2>
+<img src="static/confusion_matrix_svm_clean.png" alt="confusion_matrix_svm_clean.png">
+<h2> Finally we are using the inverse document frequency and it seems to deliver even better results.</h2>
+<h2> We get an accuracy of 0.456 and the following confusion matrix:</h2>
+<img src="static/confusion_matrix_svm_clean_Tfidf.png" alt="confusion_matrix_svm_clean_Tfidf.png">
+<div class="gap-30"></div>
+
+<h2> For the Support Vector Machine regression, we get an RMSE of 68.44 for the testset which is quite similar to the Gradient Boosting model.</h2>
+<h2> You can see in the scatterplot below how the predicted values turned out in relation to the observed ones in the test dataset</h2>
+<div>
+<canvas id="myChart2" width="100%" height="35"></canvas>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+   <script>
+   new Chart.Scatter(document.getElementById("myChart2"), {
+   type: 'scatter',
+   data: {
+     datasets: [{
+       label: '',
+       data: {{ data1 }},
+       showLine: false,
+       borderColor: "blue",
+       backgroundColor: "blue"
+     }]},
+   options: {
+    label: {
+        display: false},
+    scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Real rent'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Predicted rent'
+          }
+        }]
+  }
+
+   }
+ });
+  </script>
+</div>
+<div class="gap-20"></div>
+<h2> Here is a histogram of the errors</h2>
+
+<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script>
+
+var x = [{% for item in diff %}
+           "{{ item }}",
+          {% endfor %}];
+
+
+var trace = {
+    x: x,
+    type: 'histogram',
+  };
+var data = [trace];
+var layout = {
+    bargap: 0.05};
+Plotly.newPlot('myDiv', data, layout);
+
+</script>
+{% endblock %}

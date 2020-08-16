@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<h1> Prediction</h1>
+
+<div>
+    <title>Simple tables</title>
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
+    <p></p>
+    <h2> Data from old link </h2>
+    <div class=page>
+        {% for table in old_tables %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+    <img src="\static\shap_values.png" alt="User Image1">
+    <h2> User adjusted data </h2>
+    <div class=page>
+        {% for table in tables %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+    <img src="\static\shap_values_new.png" alt="User Image2">
+</div>
+
+{% endblock %}
