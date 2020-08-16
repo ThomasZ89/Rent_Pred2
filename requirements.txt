@@ -1,4 +1,5 @@
 Flask==1.1.2
+gunicorn ==19.9.0
 Flask-WTF==0.14.3
 ImageHash==4.1.0
 Jinja2==2.11.2
