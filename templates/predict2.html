@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
@@ -88,7 +88,7 @@
     To get a feeling for what has effected the gradient boosting model the most for it's prediction
     we can visualize the impact with shap values
 </h2>
-<img src="\static\shap_values.png" alt="User Image6">
+<img src="\static\{{shap_name}}" alt="User Image6">
 
 <h1> Custom Prediction </h1>
 <h2>
@@ -98,320 +98,321 @@
 <div style="width: 100%;">
     <form action="{{ url_for('predict3')}}" method="post">
         <button class="btn btn-primary btn-block btn-large" type="submit">Predict Custom</button>
+        <div class="gap-20"></div>
         <div style="width: 50%; float: left;">
-            <label for="lname">Zimmergröße</label>
-            <input  type="number" id="lname" name="zimmergröße" value= {{zimmer_var}} >
+            <label style="margin-bottom: .2rem"  for="lname" >Zimmergröße</label>
+            <input  type="number" id="lname" name="zimmergröße" value= {{zimmer_var}} style="height: 50px " >
 
-            <label for="PLZ">PLZ</label>
-            <select name="PLZ" id="PLZ">
+            <label style="margin-bottom: .2rem"  for="PLZ">PLZ</label>
+            <select name="PLZ" id="PLZ" style="height: 50px">
                 <option value="{{plz_var}}">{{plz_var}}</option>
-                {% for each in plz_list %}
+                {% for each in plz_list if each != plz_var %}
                 <option value="{{each}}">{{each}} </option>
                 {% endfor %}
             </select>
 
-        <label for="Buildings">Buildings</label>
-        <select name="buildings" id="Buildings">
+        <label style="margin-bottom: .2rem"  for="Buildings">Buildings</label>
+        <select name="buildings" id="Buildings" style="height: 50px">
             <option value="{{building_var}}">{{building_var}}</option>
-            {% for each in building_list %}
+            {% for each in building_list if each != building_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="Personen">Personen</label>
-        <input  type="number" id="Personen" name="personen" value= {{person_var}} >
+        <label style="margin-bottom: .2rem"  for="Personen">Personen</label>
+        <input  type="number" id="Personen" name="personen" value= {{person_var}} style="height: 50px">
 
-        <label for="bed">Bed</label>
-        <select name="bed" id="bed">
+        <label style="margin-bottom: .2rem"  for="bed">Bed</label>
+        <select name="bed" id="bed" style="height: 50px">
             <option value="{{bed_var}}">{{bed_var}}</option>
-            {% for each in bed_list %}
+            {% for each in bed_list if each != bed_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="fire">Fire</label>
-        <select name="fire" id="fire">
+        <label style="margin-bottom: .2rem"  for="fire">Fire</label>
+        <select name="fire" id="fire" style="height: 50px">
             <option value="{{fire_var}}">{{fire_var}}</option>
-            {% for each in fire_list %}
+            {% for each in fire_list if each != fire_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="status">Status</label>
-        <select name="status" id="status">
+        <label style="margin-bottom: .2rem"  for="status">Status</label>
+        <select name="status" id="status" style="height: 50px">
             <option value="{{status_var}}">{{status_var}}</option>
-            {% for each in status_list %}
+            {% for each in status_list if each != status_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="rauchen">Rauchen</label>
-        <select name="rauchen" id="rauchen">
+        <label style="margin-bottom: .2rem"  for="rauchen">Rauchen</label>
+        <select name="rauchen" id="rauchen" style="height: 50px">
             <option value="{{rauchen_var}}">{{rauchen_var}}</option>
-            {% for each in rauchen_list %}
+            {% for each in rauchen_list if each != rauchen_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="stock">Stock</label>
-        <select name="stock" id="stock">
+        <label style="margin-bottom: .2rem"  for="stock">Stock</label>
+        <select name="stock" id="stock" style="height: 50px">
             <option value="{{stock_var}}">{{stock_var}}</option>
-            {% for each in stock_list %}
+            {% for each in stock_list if each != stock_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="car">Car</label>
-        <select name="car" id="car">
+        <label style="margin-bottom: .2rem"  for="car">Car</label>
+        <select name="car" id="car" style="height: 50px">
             <option value="{{car_var}}">{{car_var}}</option>
-            {% for each in car_list %}
+            {% for each in car_list if each != car_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="straße">Straße</label>
-        <select name="straße" id="straße">
+        <label style="margin-bottom: .2rem"  for="straße">Straße</label>
+        <select name="straße" id="straße" style="height: 50px">
             <option value="{{straße_var}}">{{straße_var}}</option>
-            {% for each in straße_list %}
+            {% for each in straße_list if each != straße_var %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="wohnung">Wohnung</label>
-        <input  type="number" id="wohnung" name="wohnung" value= {{wohnung_var}} >
+        <label style="margin-bottom: .2rem"  for="wohnung">Wohnung</label>
+        <input  type="number" id="wohnung" name="wohnung" value= {{wohnung_var}} style="height: 50px">
 
-        <label for="bus">Bus</label>
-        <input  type="number" id="bus" name="bus" value= {{bus_var}} >
+        <label style="margin-bottom: .2rem"  for="bus">Bus</label>
+        <input  type="number" id="bus" name="bus" value= {{bus_var}} style="height: 50px">
 
-        <label for="dauer">Dauer</label>
-        <input  type="number" id="dauer" name="dauer" value= {{dauer_var}} >
+        <label style="margin-bottom: .2rem"  for="dauer">Dauer</label>
+        <input  type="number" id="dauer" name="dauer" value= {{dauer_var}} style="height: 50px">
 
-        <label for="ablösevereinbarung">Ablösevereinbarung</label>
-        <input  type="number" id="ablösevereinbarung" name="ablösevereinbarung" value= {{abloese_var}} >
+        <label style="margin-bottom: .2rem"  for="ablösevereinbarung">Ablösevereinbarung</label>
+            <input  type="number" id="ablösevereinbarung" name="ablösevereinbarung" value= {{abloese_var}} style="height: 50px">
 
         </div>
         <div style="margin-left: 50%;">
-        <label for="beruf_wg">Beruf_wg</label>
-        <select name="beruf_wg" id="beruf_wg">
+        <label style="margin-bottom: .2rem"  for="beruf_wg">Beruf_wg</label>
+        <select name="beruf_wg" id="beruf_wg" style="height: 50px">
             <option value="{{beruf_wg}}">{{beruf_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != beruf_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="studenten_wg">Studenten_wg</label>
-        <select name="studenten_wg" id="studenten_wg">
+        <label style="margin-bottom: .2rem"  for="studenten_wg">Studenten_wg</label>
+        <select name="studenten_wg" id="studenten_wg" style="height: 50px">
             <option value="{{studenten_wg}}">{{studenten_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != studenten_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="spuelmaschine">Spuelmaschine</label>
-        <select name="spülmaschine" id="spuelmaschine">
+        <label style="margin-bottom: .2rem"  for="spuelmaschine">Spuelmaschine</label>
+        <select name="spülmaschine" id="spuelmaschine" style="height: 50px">
             <option value="{{spuelmaschine}}">{{spuelmaschine}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != spuelmaschine %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="parkett">Parkett</label>
-        <select name="parkett" id="parkett">
+        <label style="margin-bottom: .2rem"  for="parkett">Parkett</label>
+        <select name="parkett" id="parkett" style="height: 50px">
             <option value="{{parkett}}">{{parkett}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != parkett %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="keller">Keller</label>
-        <select name="keller" id="keller">
+        <label style="margin-bottom: .2rem"  for="keller">Keller</label>
+        <select name="keller" id="keller" style="height: 50px">
             <option value="{{keller}}">{{keller}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != keller %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="balkon">Balkon</label>
-        <select name="balkon" id="balkon">
+        <label style="margin-bottom: .2rem"  for="balkon">Balkon</label>
+        <select name="balkon" id="balkon" style="height: 50px">
             <option value="{{balkon}}">{{balkon}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != balkon %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="aufzug">Aufzug</label>
-        <select name="aufzug" id="aufzug">
+        <label style="margin-bottom: .2rem"  for="aufzug">Aufzug</label>
+        <select name="aufzug" id="aufzug" style="height: 50px">
             <option value="{{aufzug}}">{{aufzug}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != aufzug %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="fliesen">Fliesen</label>
-        <select name="fliesen" id="fliesen">
+        <label style="margin-bottom: .2rem"  for="fliesen">Fliesen</label>
+        <select name="fliesen" id="fliesen" style="height: 50px">
             <option value="{{fliesen}}">{{fliesen}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != fliesen %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="fussbodenheizung">Fussbodenheizung</label>
-        <select name="fußbodenheizung" id="fussbodenheizung">
+        <label style="margin-bottom: .2rem"  for="fussbodenheizung">Fussbodenheizung</label>
+        <select name="fußbodenheizung" id="fussbodenheizung" style="height: 50px">
             <option value="{{fussbodenheizung}}">{{fussbodenheizung}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != fussbodenheizung %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="gemischt_wg">Gemischt_wg</label>
-        <select name="gemischt_wg" id="gemischt_wg">
+        <label style="margin-bottom: .2rem"  for="gemischt_wg">Gemischt_wg</label>
+        <select name="gemischt_wg" id="gemischt_wg" style="height: 50px">
             <option value="{{gemischt_wg}}">{{gemischt_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != gemischt_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="waschmaschine">Waschmaschine</label>
-        <select name="waschmaschine" id="waschmaschine">
+        <label style="margin-bottom: .2rem"  for="waschmaschine">Waschmaschine</label>
+        <select name="waschmaschine" id="waschmaschine" style="height: 50px">
             <option value="{{waschmaschine}}">{{waschmaschine}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != waschmaschine %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="teppich">Teppich</label>
-        <select name="teppich" id="teppich">
+        <label style="margin-bottom: .2rem"  for="teppich">Teppich</label>
+        <select name="teppich" id="teppich" style="height: 50px">
             <option value="{{teppich}}">{{teppich}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != teppich %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="kabel">Kabel</label>
-        <select name="kabel" id="kabel">
+        <label style="margin-bottom: .2rem"  for="kabel">Kabel</label>
+        <select name="kabel" id="kabel" style="height: 50px">
             <option value="{{kabel}}">{{kabel}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != kabel %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="dusche">Dusche</label>
-        <select name="dusche" id="dusche">
+        <label style="margin-bottom: .2rem"  for="dusche">Dusche</label>
+        <select name="dusche" id="dusche" style="height: 50px">
             <option value="{{dusche}}">{{dusche}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != dusche %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="pvc">PVC</label>
-        <select name="pvc" id="pvc">
+        <label style="margin-bottom: .2rem"  for="pvc">PVC</label>
+        <select name="pvc" id="pvc" style="height: 50px">
             <option value="{{pvc}}">{{pvc}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != pvc %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="badewanne">Badewanne</label>
-        <select name="badewanne" id="badewanne">
+        <label style="margin-bottom: .2rem"  for="badewanne">Badewanne</label>
+        <select name="badewanne" id="badewanne" style="height: 50px">
             <option value="{{badewanne}}">{{badewanne}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != badewanne %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="zweck_wg">Zweck_wg</label>
-        <select name="zweck_wg" id="zweck_wg">
+        <label style="margin-bottom: .2rem"  for="zweck_wg">Zweck_wg</label>
+        <select name="zweck_wg" id="zweck_wg" style="height: 50px">
             <option value="{{zweck_wg}}">{{zweck_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != zweck_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="laminat">Laminat</label>
-        <select name="laminat" id="laminat">
+        <label style="margin-bottom: .2rem"  for="laminat">Laminat</label>
+        <select name="laminat" id="laminat" style="height: 50px">
             <option value="{{laminat}}">{{laminat}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != laminat %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="garten">Garten</label>
-        <select name="garten" id="garten">
+        <label style="margin-bottom: .2rem"  for="garten">Garten</label>
+        <select name="garten" id="garten" style="height: 50px">
             <option value="{{garten}}">{{garten}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != garten %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="azubi_wg">Azubi_wg</label>
-        <select name="azubi_wg" id="azubi_wg">
+        <label style="margin-bottom: .2rem"  for="azubi_wg">Azubi_wg</label>
+        <select name="azubi_wg" id="azubi_wg" style="height: 50px">
             <option value="{{azubi_wg}}">{{azubi_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != azubi_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="satellit">Satellit</label>
-        <select name="satellit" id="satellit">
+        <label style="margin-bottom: .2rem"  for="satellit">Satellit</label>
+        <select name="satellit" id="satellit" style="height: 50px">
             <option value="{{satellit}}">{{satellit}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != satellit %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="terrasse">Terrasse</label>
-        <select name="terrasse" id="terrasse">
+        <label style="margin-bottom: .2rem"  for="terrasse">Terrasse</label>
+        <select name="terrasse" id="terrasse" style="height: 50px">
             <option value="{{terrasse}}">{{terrasse}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != terrasse %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="dielen">Dielen</label>
-        <select name="dielen" id="dielen">
+        <label style="margin-bottom: .2rem"  for="dielen">Dielen</label>
+        <select name="dielen" id="dielen" style="height: 50px">
             <option value="{{dielen}}">{{dielen}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != dielen %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="frauen_wg">Frauen_wg</label>
-        <select name="frauen_wg" id="frauen_wg">
+        <label style="margin-bottom: .2rem"  for="frauen_wg">Frauen_wg</label>
+        <select name="frauen_wg" id="frauen_wg" style="height: 50px">
             <option value="{{frauen_wg}}">{{frauen_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != frauen_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="keine_zweck_wg">Keine_zweck_wg</label>
-        <select name="keine_zweck_wg" id="keine_zweck_wg">
+        <label style="margin-bottom: .2rem"  for="keine_zweck_wg">Keine_zweck_wg</label>
+        <select name="keine_zweck_wg" id="keine_zweck_wg" style="height: 50px">
             <option value="{{keine_zweck_wg}}">{{keine_zweck_wg}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != keine_zweck_wg %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
 
-        <label for="fahrradkeller">Fahrradkeller</label>
-        <select name="fahrradkeller" id="fahrradkeller">
+        <label style="margin-bottom: .2rem"  for="fahrradkeller">Fahrradkeller</label>
+        <select name="fahrradkeller" id="fahrradkeller" style="height: 50px">
             <option value="{{fahrradkeller}}">{{fahrradkeller}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != fahrradkeller %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="gartenmitbenutzung">Gartenmitbenutzung</label>
-        <select name="gartenmitbenutzung" id="gartenmitbenutzung">
+        <label style="margin-bottom: .2rem"  for="gartenmitbenutzung">Gartenmitbenutzung</label>
+        <select name="gartenmitbenutzung" id="gartenmitbenutzung" style="height: 50px">
             <option value="{{gartenmitbenutzung}}">{{gartenmitbenutzung}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != gartenmitbenutzung %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>
 
-        <label for="haustiere">Haustiere</label>
-        <select name="haustiere" id="haustiere">
+        <label style="margin-bottom: .2rem"  for="haustiere">Haustiere</label>
+        <select name="haustiere" id="haustiere" style="height: 50px">
             <option value="{{haustiere}}">{{haustiere}}</option>
-            {% for each in bool_list %}
+            {% for each in bool_list if each != haustiere %}
             <option value="{{each}}">{{each}} </option>
             {% endfor %}
         </select>

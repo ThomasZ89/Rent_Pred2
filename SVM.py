@@ -1,13 +1,8 @@
 import pandas as pd
-from sklearn.metrics import plot_confusion_matrix
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import LinearSVC, SVC, SVR
-from sklearn import metrics
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC, SVR
 import pickle
-import matplotlib.pyplot as plt
-
 
 df = pd.read_csv(r"static/housing_text.csv")
 

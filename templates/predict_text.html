@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
 
 
-<h1> Prediction</h1>
+<h1> Rent Prediction from Text</h1>
 <h2> Enter a valid html link into this form, to get a prediction what the rent should be, according to
     the description of the advertisement</h2>
     <h2> Valid htmls must be looked up here:
@@ -22,7 +22,7 @@
 <h2> You can also enter a custom text too see what rent is associated with it</h2>
 
 <form action="{{ url_for('predict_text2')}}"method="post">
-    <textarea rows = "30" cols = "200" name = "predict_custom_text" placeholder="Enter your text here"></textarea>
+    <textarea rows = "30" cols = "235" name = "predict_custom_text" placeholder="Enter your text here"></textarea>
     <button class="btn btn-primary btn-block btn-large" type="submit">Predict</button>
 </form>
 

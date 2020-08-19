@@ -4,26 +4,45 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import numpy as np
-import time
-import os
-import zipfile
 import pickle
 import re
 import matplotlib.pyplot as plt
 from matplotlib.transforms import Affine2D
 import shap
+import datetime
+import os
 
 features = ['wohnung', 'zimmergröße', 'personen', 'car', 'buildings', 'stock', 'bus', 'bed', 'fire', 'rauchen', 'zweck_wg', 'keine_zweck_wg', 'beruf_wg', 'gemischt_wg', 'studenten_wg', 'frauen_wg', 'azubi_wg', 'straße', 'aufzug', 'balkon', 'fahrradkeller', 'garten', 'gartenmitbenutzung', 'haustiere', 'keller', 'spülmaschine', 'terrasse', 'waschmaschine', 'dielen', 'fliesen', 'fußbodenheizung', 'laminat', 'parkett', 'pvc', 'teppich', 'badewanne', 'dusche', 'kabel', "ablösevereinbarung", 'satellit', 'status', 'dauer', 'PLZ', "m2_pro_pers"]
 cat_features = ["car", "buildings", "bed","stock","fire", "PLZ"]
 num_feat = ['wohnung', 'zimmergröße', 'personen', 'bus', 'ablösevereinbarung', 'dauer']
 num_and_bool_feat = list(set(features) - set(cat_features))
 
+
+def remove_old_shap():
+    for filename in os.listdir("static/"):
+        if filename.startswith('shap_values'):
+            os.remove("static/"+filename)
+
+
+def get_latest_link_shap():
+    shap_files = []
+    for filename in os.listdir("static/"):
+        if filename.startswith('shap_values_link'):
+            shap_files.append(filename)
+    shap_files.sort(reverse=True)
+    return shap_files[0]
+
+
 def save_shap_plot(model, X, name=""):
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     shap.force_plot(explainer.expected_value, shap_values[0, :], X.iloc[0, :], matplotlib=True, show=False)
-    plt.savefig('static/'+name+'.png', bbox_inches='tight')
+    number = str(int(datetime.datetime.utcnow().timestamp()))
+    name = name + number+'.png'
+    save_name = 'static/'+ name
+    plt.savefig(save_name, bbox_inches='tight')
+    return name
 
 def plot_all_errorbars(df, name):
     x = df.index
@@ -37,6 +56,7 @@ def plot_all_errorbars(df, name):
     trans2 = Affine2D().translate(+0.1, 0.0) + ax.transData
     er1 = ax.errorbar(y1, x, xerr=yerr1, marker="o", linestyle="none", transform=trans1)
     ax.axvline(x=0, color="black")
+    ax.set_ylim(-0.1, len(df) - 1 + 0.1)
     return plt.savefig('static/'+name + '.png', bbox_inches='tight')
 
 def plot_errorbars(df, name):
@@ -51,6 +71,7 @@ def plot_errorbars(df, name):
     trans2 = Affine2D().translate(+0.1, 0.0) + ax.transData
     er1 = ax.errorbar(y1, x, xerr=yerr1, marker="o", linestyle="none", transform=trans1)
     ax.axvline(x=0, color="black")
+    ax.set_ylim(-0.1, len(df) - 1 + 0.1)
     return plt.savefig('static/'+name + '.png', bbox_inches='tight')
 
 

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
-
 {% block body %}
 
 
 <h1> Prediction</h1>
+<div class="gap-20"></div>
 <h2> Enter a valid html link into this form, to get a prediction what the rent should be, according to the metadata</h2>
-    <h2> Valid htmls must be looked up here:
-        <a href="https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html"> https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html</a>
-    </h2>
+<h2> Valid htmls must be looked up here:
+    <a href="https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html"> https://www.wg-gesucht.de/wg-zimmer-in-Frankfurt-am-Main.41.0.0.0.html</a>
+</h2>
 
 
 <form action="{{ url_for('predict2')}}"method="post">

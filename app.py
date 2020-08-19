@@ -1,7 +1,9 @@
 import matplotlib
+
 matplotlib.use('Agg')
 from flask import Flask, render_template, request
-from functions import link_to_pandas, catboost_predict, get_text, features, save_shap_plot
+from functions import link_to_pandas, catboost_predict, get_text, features, save_shap_plot, get_latest_link_shap, \
+    remove_old_shap
 from SVM import predict_prob
 import pandas as pd
 import numpy as np
@@ -10,8 +12,6 @@ from svr import svr_predict_rent
 
 app = Flask(__name__)
 
-
-#df_saved = pd.read_excel('static/filtered_df.xlsx')
 df_saved = pd.read_csv('static/filtered_df.csv')
 feat_df = pd.read_csv(r"static/feat_df.csv").sort_values(by=['Importance'], ascending=False).round(2)
 labels1 = list(feat_df["Feature"])
@@ -39,6 +39,9 @@ bool_list = [0, 1]
 
 info_df = pd.DataFrame(list(zip(labels1, feat_legend)), columns=['Feature', 'Meaning']).sort_values(by=['Feature'])
 
+# Remove old shap images
+remove_old_shap()
+
 
 @app.route('/')
 def home():
@@ -47,7 +50,7 @@ def home():
 
 @app.route('/feature_overview')
 def test():
-    return render_template("feature_overview.html",  table1=[info_df.to_html(classes='male', index=False)])
+    return render_template("feature_overview.html", table1=[info_df.to_html(classes='male', index=False)])
 
 
 @app.route('/Feature_Exploration')
@@ -78,7 +81,7 @@ def predict2():
     df = link_to_pandas(link, df_saved=df_saved)
     X = df[features]
     model = pickle.load(open('static/model.pkl', 'rb'))
-    save_shap_plot(model, X, "shap_values")
+    shap_name = save_shap_plot(model, X, "shap_values_link")
     prediction = round(np.asscalar(catboost_predict(dataframe=df)), 2)
     pred_values = [float(df.gesamtmiete.iloc[0]), float(prediction)]
     text = get_text(link)
@@ -147,7 +150,7 @@ def predict2():
                            satellit=satellit, terrasse=terrasse, dielen=dielen, frauen_wg=frauen_wg,
                            keine_zweck_wg=keine_zweck_wg, fahrradkeller=fahrradkeller,
                            gartenmitbenutzung=gartenmitbenutzung, haustiere=haustiere, straße_var=straße_var,
-                           straße_list=straße_list
+                           straße_list=straße_list, shap_name=shap_name
 
                            )
 
@@ -170,11 +173,12 @@ def predict3():
         df_input[x] = df_input[x].astype(old_df[x].dtypes.name)
     df_input["m2_pro_pers"] = df_input.wohnung / df_input.personen
     df_input = df_input[list(old_df.columns)]
-    save_shap_plot(model, df_input, "shap_values_new")
+    shap_name_link = get_latest_link_shap()
+    shap_name_custom = save_shap_plot(model, df_input, "shap_values_custom")
     return render_template('predict3.html',
                            tables=[df_input.to_html(classes='male', index=False)],
-
-                           old_tables=[old_df.to_html(classes='male', index=False)])
+                           old_tables=[old_df.to_html(classes='male', index=False)],
+                           shap_name_custom=shap_name_custom, shap_name_link=shap_name_link)
 
 
 @app.route('/predict_text', methods=['POST', "GET"])
@@ -230,6 +234,7 @@ def models():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

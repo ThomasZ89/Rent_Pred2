@@ -1,87 +1,89 @@
 {% extends "base.html" %}
 
 {% block head %}
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
 <h1> Regression Coefficients</h1>
-<h3>For each feature class (numeric, categorical, boolean) as wall as for every feature combined a separate regression
+<h2>For each feature class (numeric, categorical, boolean) as wall as for every feature combined a separate regression
     was performed. The resulting coefficients are displayed below. You can also see how important each of those features
     were for the gradient boosting model at the end of the page, to give a sense of what factors mainly drive
-    the rent price.</h3>
+    the rent price.</h2>
 
-    <h3> At first we examine the effect of the categorial Variables on the rent. For every category a linear regression
+<h2> At first we examine the effect of the categorial Variables on the rent. For every category a linear regression
     was performed without a constant. After that the mean rent value was subtracted from the coefficients.
-    The following charts display the coefficient and the standard error for each feature. </h3>
-    <h1> Feature: fire (heating system)</h1>
-    <h3> We can see that Ofenheizung (furnace heating) was associated with the lowest rent in contrast to
+    The following charts display the coefficient and the standard error for each feature. </h2>
+<div class="gap-30"></div>
+<h1> Feature: fire (heating system)</h1>
+<h2> We can see that Ofenheizung (furnace heating) was associated with the lowest rent in contrast to
     Fernwärme (district heating), which seems to be a sign for higher rent.
     Kohleofen (coal stove) has a very high standard error, so more data is needed to estimate the true effect here.
-    </h3>
-    <img  src="\static\fire.png" alt="User Image1">
-
-    <h1> Feature: car (floor) </h1>
-     <h3> We can see a clear relation between the floor and the rent here. The higher the floor gets the higher the rent,
-     with Keller(cellar) being by far the most unpopular option.
-     There is one exception though. Dachgeschoss(top floor) was associated with lower rent, presumably because of increasing heat
-     in the summer or sloping ceilings.
-    </h3>
-    <img class="right" src="\static\stock.png" alt="User Image2">
-
-    <h1> Feature: car (parking situation) </h1>
-    <h3>  Bewohnerparken (resident parking) and Tiefgaragenstellplatz (underground parking space) are associated with higher rent.
+</h2>
+<img  src="\static\fire.png" alt="User Image1">
+<div class="gap-30"></div>
+<h1> Feature: car (floor) </h1>
+<h2> We can see a clear relation between the floor and the rent here. The higher the floor gets the higher the rent,
+    with Keller(cellar) being by far the most unpopular option.
+    There is one exception though. Dachgeschoss(top floor) was associated with lower rent, presumably because of increasing heat
+    in the summer or sloping ceilings.
+</h2>
+<img class="right" src="\static\stock.png" alt="User Image2">
+<div class="gap-30"></div>
+<h1> Feature: car (parking situation) </h1>
+<h2>  Bewohnerparken (resident parking) and Tiefgaragenstellplatz (underground parking space) are associated with higher rent.
     Curiously gute Parkmöglichektien (good parking opportunities) seem to correlate with higher rent than schlechte Parkmöglichkeiten
     (bad parking opportunities). Probably more data is needed to see that effect turn around, or maybe some hidden confounding factors are
     in place here.
-    </h3>
-    <img src="\static\car.png" alt="User Image3">
-
-    <h1> Feature: bed (furniture) </h1>
-    <h3>
+</h2>
+<img src="\static\car.png" alt="User Image3">
+<div class="gap-30"></div>
+<h1> Feature: bed (furniture) </h1>
+<h2>
     We can see that if there is no info about furniture, the rents are usually lower. It doesn't make a huge difference
     if there are only some pieces of furniture or if it is fully furnitured.
-    </h3>
-    <img src="\static\bed.png" alt="User Image4">
-
-    <h1> Feature: buildings (building type) </h1>
-    <h3>
+</h2>
+<img src="\static\bed.png" alt="User Image4">
+<div class="gap-30"></div>
+<h1> Feature: buildings (building type) </h1>
+<h2>
     As one would expect we can see, that the least attractive building types like Plattenbau (prefabricated building) and
     Reihenhaus (terraced house) are associated with lower rents, while more modern types go hand in hand with higher values.
-    </h3>
-    <img src="\static\buildings.png" alt="User Image4">
-
-    <h1> Boolean Values </h1>
-    <h3>
+</h2>
+<img src="\static\buildings.png" alt="User Image4">
+<div class="gap-30"></div>
+<h1> Boolean Values </h1>
+<h2>
     In this section all boolean features have been summarized.
     We can see that business flat-sharing community are associated with a significant higher rent
-    </h3>
-    <img src="\static\boolean_parameters.png" alt="User Image4">
-
-    <h1> Numerical Values </h1>
-    <h3>
+</h2>
+<img src="\static\boolean_parameters.png" alt="User Image4">
+<div class="gap-30"></div>
+<h1> Numerical Values </h1>
+<h2>
     Here we can see the relationship between numerical values and the rent.
     Not surprisingly larger rooms and flats are associated with higher rent, whereas more people and a greater distance
     to the next bus station have the opposite effect. m2_pro_pers was not included here, since it is an engineered
     variable and would distort the coefficients of the other features.
-    </h3>
-    <img src="\static\num_feat.png" alt="User Image5">
-
-    <h1>What districts are the most expensive? </h1>
-    <h3>Here I have visualized the regression coefficients of the various districts.
-    With the exception of Eschborn, we can clearly see a relationship between the distance to the center and the magnitude of the coefficient </h3>
-    <iframe class="map", src="/map" width="1100" height="600"></iframe>
-
-    <h1>The whole picture </h1>
-    <h3>Here we can see the coefficients when we include all variables for the regression (PLZ, kohleofen and Straße
-     have been removed from the diagram to increase readability. We can also see, that bad parking availability is now associated with lower rents
-     than good parking availability, which means that initally there might have been some confounding going on.</h3>
-     <img src="\static\all.png" alt="User Image5">
-
+</h2>
+<img src="\static\num_feat.png" alt="User Image5">
+<div class="gap-30"></div>
+<h1>What districts are the most expensive? </h1>
+<h2>Here I have visualized the regression coefficients of the various districts.
+    With the exception of Eschborn, we can clearly see a relationship between the distance to the center and the magnitude of the coefficient </h2>
+<iframe class="map", src="/map" width="1100" height="600"></iframe>
+<div class="gap-30"></div>
+<h1>The whole picture </h1>
+<h2>Here we can see the coefficients when we include all variables for the regression (PLZ, kohleofen and Straße
+    have been removed from the diagram to increase readability. We can also see, that bad parking availability is now associated with lower rents
+    than good parking availability, which means that initally there might have been some confounding going on.</h2>
+<img src="\static\all.png" alt="User Image5">
+<div class="gap-30"></div>
 <h1> Feature Importance Overview</h1>
-<h3>
-In this section we can see what features where most important for the gradient boosting model. It seems like location (Lage and PLZ)
-size (Zimmergröße, m2_pro_pers) and the building type play a larger role, whereas a lot of boolean features don't contribute much.
-</h3>
+<h2>
+    In this section we can see what features where most important for the gradient boosting model. It seems like location (Lage and PLZ)
+    size (Zimmergröße, m2_pro_pers) and the building type play a larger role, whereas a lot of boolean features don't contribute much.
+</h2>
 <canvas height="400" id="myChart" width="400"></canvas>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
 <script>

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
+<h1> Rent Prediction from Text</h1>
 <h2> The Support Vector Regressor predicts a rent of {{point_est}} €. </h2>
 <h2> The results of the classification model are displayed below </h2>
 <div class="gap-20"></div>

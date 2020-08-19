@@ -5,7 +5,7 @@ from statsmodels.formula.api import ols
 import statsmodels.regression.linear_model as sm
 from functions import plot_all_errorbars, plot_errorbars, features, cat_features, num_feat
 
-filtered_df = pd.read_csv(r'filtered_df.csv')
+filtered_df = pd.read_csv(r'static/filtered_df.csv')
 filtered_df.PLZ = filtered_df.PLZ.astype(str)
 mean = filtered_df.gesamtmiete.mean()
 dataframes = {}
@@ -67,4 +67,4 @@ formula = "gesamtmiete ~ PLZ -1"
 fit = sm.OLS.from_formula(formula, data=filtered_df).fit()
 param_df = pd.DataFrame(fit.params, columns=["parameter"])
 param_df["PLZ"] = [item.replace("PLZ", '').replace('[', '').replace(']', '') for item in list(param_df.index)]
-param_df.to_csv("PLZ_param.csv")
+param_df.to_csv("static/PLZ_param.csv")

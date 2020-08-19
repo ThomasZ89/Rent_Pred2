@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
-<h1> Probability for each quantile according to text analysis </h1>
+<h1> Rent Prediction from Text</h1>
+
 <div class="gap-10"></div>
 <h2> Text was extracted from the following link: {{link}} </h2>
 <h2> The Support Vector Regressor predicts a rent of {{point_est}} €. </h2>

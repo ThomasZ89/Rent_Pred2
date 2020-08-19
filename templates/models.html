@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-
-
+    <link href="{{url_for('static', filename='css/style.css') }}" rel=stylesheet type=text/css>
 {% endblock %}
 
 {% block body %}
@@ -83,7 +82,7 @@ Plotly.newPlot('myDiv1', data, layout);
 <h1> Support Vector Machine</h1>
 <h2> Two models have been created here, a svm classifier and a svm regressor.</h2>
 <h2> Before running the models we can preprocess the text.</h2>
-<h2> For the raw text we get an accuracy of 0.414 and the following confusion matrix:</h2>
+<h2> For the raw text we get an accuracy of 0.414 and the following confusion matrix with every quintile being a category:</h2>
 <img src="static/confusion_matrix_svm.png" alt="confusion_matrix_svm.png">
 <h2> We can see that most of the times the model has the right tendency, even if it does not predict the right class.</h2>
 <h2> Now we remove stopwords, special characters, umlauts and do lemmatization.</h2>

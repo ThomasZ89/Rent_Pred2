@@ -1,16 +1,10 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import LinearSVC, SVC, SVR
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report, confusion_matrix, plot_confusion_matrix
-from sklearn.metrics import accuracy_score, mean_absolute_error
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVR
+from sklearn.metrics import  mean_absolute_error
 import pickle
 import re
-from sklearn import metrics
-import os, re, sys
-import nltk
 
 
 

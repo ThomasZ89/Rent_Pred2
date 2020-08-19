@@ -1,7 +1,12 @@
 body            { font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;}
 a, h1, h2, h3   { color: #000000; }
 h1, h2, h3      { margin: 20; }
-h1              { border-bottom: 2px solid #eee; }
+h1              {
+                border-bottom: 2px solid #eee;
+                border-bottom-width: 2px;
+                border-bottom-style: solid;
+                border-bottom-color: rgb(238, 238, 238);
+                  }
 h2              { font-size: 1.4em; }
 h3              { font-size: 1em; }
 
@@ -31,8 +36,8 @@ tr:hover            { background-color: #cacfd6;}
 /* Style inputs */
   input[type=number], select {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 8px 10px;
+  margin: 0px 0px 16px 0px;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -42,8 +47,8 @@ tr:hover            { background-color: #cacfd6;}
 /* Style inputs */
   input[type=text], select {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 8px 10px;
+  margin: 0px 0px 16px 0px;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
