@@ -1,45 +1,45 @@
 ,Feature,Importance,Meaning
-0,wohnung,2.6278387439151127,What is the size of the whole flat
-1,zimmergröße,9.544486507862462,How big is the room
-2,personen,3.752497893271501,Number of inhabitants
-3,car,4.599315132730015,How are the parking possibilities
-4,buildings,7.554667413191413,What kind of house is it
-5,stock,5.712420576655979,Which house floor
-6,bus,2.5000793530551695,How long is it to the next bus station
-7,bed,5.848993431645977,Is it furnished?
-8,fire,3.534282858878661,What kind of heating system does the flat have
-9,rauchen,1.2230188216590496,Is smoking allowed
-10,zweck_wg,1.0388426373866786,flat-sharing community without a lot of social interaction
-11,keine_zweck_wg,0.6171754765041674,flat-sharing community with a lot of social interaction
-12,beruf_wg,4.095756820689541,flat-sharing community for business people
-13,gemischt_wg,1.5322943321313665,Is the flat-sharing community mixed
-14,studenten_wg,3.5679847428734726,flat-sharing community for students
-15,frauen_wg,0.25334783660213334,flat-sharing community for women
-16,azubi_wg,0.19236968550795175,flat-sharing community for apprentices
-17,straße,4.771869991574923,Streetname where the house is located
-18,aufzug,0.5981165623216643,Does it have an elevator
-19,balkon,1.4596627279541232,Does it have a balcony
-20,fahrradkeller,0.2976417448353833,Cellar for bikes
-21,garten,0.1645679231361459,Garden
-22,gartenmitbenutzung,0.10496491290363885,Garden sharing
-23,haustiere,0.011935439892283687,Are pets allowed
-24,keller,1.3052845777470834,Does it have a cellar
-25,spülmaschine,2.683435619847316,Does it have a dishwasher
-26,terrasse,0.17799866567064768,Does it have a Terrace
-27,waschmaschine,0.5338161306006067,Does it have a washing machine
-28,dielen,0.12753822164833084,Does it have floorboards
-29,fliesen,0.9654677883302387,Does it have tiles
-30,fußbodenheizung,0.31815655808730237,Does it have underfloor heating
-31,laminat,0.5841655592819361,Does it have a laminate floor
-32,parkett,2.335713405408568,Does it have a parquet floor
-33,pvc,0.3598402818180274,Does it have a PVC floor
-34,teppich,0.3469838906527073,Does it have a carpet
-35,badewanne,0.9250422702528841,Does it have a bathtub
-36,dusche,0.9344458595834324,Does it have a shower
-37,kabel,0.7871189817233156,Does it have a cable connection
-38,ablösevereinbarung,0.7776848743901065,How much is the replacement agreement
-39,satellit,0.09779397358790136,Does it have satellite reception
-40,status,1.8454110760222695,Is the advertisement currently active
-41,dauer,0.04100636616774152,Duration of the rent
-42,PLZ,12.094260535795058,What is the ZIP code
-43,m2_pro_pers,7.1547037962056,square meter per person
+0,wohnung,2.7055009255005547,What is the size of the whole flat
+1,zimmergröße,9.737635456473516,How big is the room
+2,personen,3.694490866539923,Number of inhabitants
+3,car,4.323449431614879,How are the parking possibilities
+4,buildings,8.075712490421942,What kind of house is it
+5,stock,5.632731378352081,Which house floor
+6,bus,2.5614853552499706,How long is it to the next bus station
+7,bed,5.327264373158413,Is it furnished?
+8,fire,3.49778940197387,What kind of heating system does the flat have
+9,rauchen,1.23786066243068,Is smoking allowed
+10,zweck_wg,1.0533024948617982,flat-sharing community without a lot of social interaction
+11,keine_zweck_wg,0.6585695734177325,flat-sharing community with a lot of social interaction
+12,beruf_wg,4.241019031319616,flat-sharing community for business people
+13,gemischt_wg,1.4002572942471196,Is the flat-sharing community mixed
+14,studenten_wg,3.484565367435271,flat-sharing community for students
+15,frauen_wg,0.15157495066715315,flat-sharing community for women
+16,azubi_wg,0.24233333810427676,flat-sharing community for apprentices
+17,straße,4.870700300567111,Streetname where the house is located
+18,aufzug,0.4128475707912776,Does it have an elevator
+19,balkon,1.5294761128979169,Does it have a balcony
+20,fahrradkeller,0.32766918004620177,Cellar for bikes
+21,garten,0.1879639409242452,Garden
+22,gartenmitbenutzung,0.15016862943840917,Garden sharing
+23,haustiere,0.022657564212831112,Are pets allowed
+24,keller,1.5218267810908281,Does it have a cellar
+25,spülmaschine,2.4725476394370927,Does it have a dishwasher
+26,terrasse,0.19217293010591627,Does it have a Terrace
+27,waschmaschine,0.5419355912637067,Does it have a washing machine
+28,dielen,0.1131802424031496,Does it have floorboards
+29,fliesen,0.7717941235776287,Does it have tiles
+30,fußbodenheizung,0.3509570772223032,Does it have underfloor heating
+31,laminat,0.7372443494689934,Does it have a laminate floor
+32,parkett,2.4004661428691616,Does it have a parquet floor
+33,pvc,0.3489581712696376,Does it have a PVC floor
+34,teppich,0.4301095820171214,Does it have a carpet
+35,badewanne,0.796221742607287,Does it have a bathtub
+36,dusche,0.9126260155826473,Does it have a shower
+37,kabel,0.7021803724108132,Does it have a cable connection
+38,ablösevereinbarung,0.6824456827918091,How much is the replacement agreement
+39,satellit,0.1496682017275632,Does it have satellite reception
+40,status,1.806718435700684,Is the advertisement currently active
+41,dauer,0.03409513896505092,Duration of the rent
+42,PLZ,11.987425178516794,What is the ZIP code
+43,m2_pro_pers,7.520400910325211,square meter per person

@@ -11,6 +11,7 @@ random.seed(30)
 
 train_features = features + ["gesamtmiete"]
 filtered_df = pd.read_csv(r'static/filtered_df.csv')
+filtered_df["PLZ"] = filtered_df["PLZ"].astype(str)
 
 train_model = 0
 if train_model == 1:
@@ -18,7 +19,7 @@ if train_model == 1:
     X = boost_df[features]
     Y = pd.DataFrame(boost_df["gesamtmiete"])
 
-    X_train, X_validation, y_train, y_validation = train_test_split(X, Y, train_size=0.75, random_state=1234)
+    X_train, X_validation, y_train, y_validation = train_test_split(X, Y, train_size=0.85, random_state=1234)
     categorical_features_indices = np.where(X.dtypes != np.float)[0]
     train_pool = Pool(X_train, y_train, cat_features=categorical_features_indices)
     validate_pool = Pool(X_validation, y_validation, cat_features=categorical_features_indices)

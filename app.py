@@ -3,7 +3,7 @@ import matplotlib
 matplotlib.use('Agg')
 from flask import Flask, render_template, request
 from functions import link_to_pandas, catboost_predict, get_text, features, save_shap_plot, get_latest_link_shap, \
-    remove_old_shap
+    remove_old_shap, convert_none_zero
 from SVM import predict_prob
 import pandas as pd
 import numpy as np
@@ -63,9 +63,9 @@ def map():
     return render_template('map.html')
 
 
-@app.route('/coefficient_overview')
+@app.route('/feature_analysis')
 def index():
-    return render_template("coefficient_overview.html", table1=[info_df.to_html(classes='male', index=False)],
+    return render_template("feature_analysis.html", table1=[info_df.to_html(classes='male', index=False)],
                            labels1=labels1, values1=values1, max1=max1, legend=feat_legend
                            )
 
@@ -101,11 +101,11 @@ def predict2():
     rauchen_var = df["rauchen"].values[0]
     wohnung_var = df["wohnung"].values[0]
     bus_var = df["bus"].values[0]
-    abloese_var = df["ablösevereinbarung"].values[0]
+    abloese_var = convert_none_zero(df["ablösevereinbarung"].values[0])
     dauer_var = df["dauer"].values[0]
     stock_var = df["stock"].values[0]
-    beruf_wg = df["beruf_wg"].values[0]
-    studenten_wg = df["studenten_wg"].values[0]
+    beruf_wg = int(df["beruf_wg"].values[0])
+    studenten_wg = int(df["studenten_wg"].values[0])
     spuelmaschine = df["spülmaschine"].values[0]
     parkett = df["parkett"].values[0]
     keller = df["keller"].values[0]
@@ -113,22 +113,22 @@ def predict2():
     aufzug = df["aufzug"].values[0]
     fliesen = df["fliesen"].values[0]
     fussbodenheizung = df["fußbodenheizung"].values[0]
-    gemischt_wg = df["gemischt_wg"].values[0]
+    gemischt_wg = int(df["gemischt_wg"].values[0])
     waschmaschine = df["waschmaschine"].values[0]
     teppich = df["teppich"].values[0]
     kabel = df["kabel"].values[0]
     dusche = df["dusche"].values[0]
     pvc = df["pvc"].values[0]
     badewanne = df["badewanne"].values[0]
-    zweck_wg = df["zweck_wg"].values[0]
+    zweck_wg = int(df["zweck_wg"].values[0])
     laminat = df["laminat"].values[0]
     garten = df["garten"].values[0]
-    azubi_wg = df["azubi_wg"].values[0]
+    azubi_wg = int(df["azubi_wg"].values[0])
     satellit = df["satellit"].values[0]
     terrasse = df["terrasse"].values[0]
     dielen = df["dielen"].values[0]
-    frauen_wg = df["frauen_wg"].values[0]
-    keine_zweck_wg = df["keine_zweck_wg"].values[0]
+    frauen_wg = int(df["frauen_wg"].values[0])
+    keine_zweck_wg = int(df["keine_zweck_wg"].values[0])
     fahrradkeller = df["fahrradkeller"].values[0]
     gartenmitbenutzung = df["gartenmitbenutzung"].values[0]
     haustiere = df["haustiere"].values[0]
@@ -141,7 +141,7 @@ def predict2():
                            bed_var=bed_var, bed_list=bed_list, car_var=car_var, car_list=car_list,
                            fire_var=fire_var, fire_list=fire_list, status_var=status_var, status_list=status_list,
                            rauchen_var=rauchen_var, rauchen_list=rauchen_list, wohnung_var=wohnung_var,
-                           bus_var=bus_var, ablöse_var=abloese_var, dauer_var=dauer_var, stock_list=stock_list,
+                           bus_var=bus_var, abloese_var=abloese_var, dauer_var=dauer_var, stock_list=stock_list,
                            stock_var=stock_var, bool_list=bool_list, beruf_wg=beruf_wg, studenten_wg=studenten_wg,
                            spuelmaschine=spuelmaschine, parkett=parkett, keller=keller, balkon=balkon, aufzug=aufzug,
                            fliesen=fliesen, fussbodenheizung=fussbodenheizung, gemischt_wg=gemischt_wg,

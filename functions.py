@@ -11,12 +11,30 @@ from matplotlib.transforms import Affine2D
 import shap
 import datetime
 import os
+from wordcloud import WordCloud
+import numpy as np
 
 features = ['wohnung', 'zimmergröße', 'personen', 'car', 'buildings', 'stock', 'bus', 'bed', 'fire', 'rauchen', 'zweck_wg', 'keine_zweck_wg', 'beruf_wg', 'gemischt_wg', 'studenten_wg', 'frauen_wg', 'azubi_wg', 'straße', 'aufzug', 'balkon', 'fahrradkeller', 'garten', 'gartenmitbenutzung', 'haustiere', 'keller', 'spülmaschine', 'terrasse', 'waschmaschine', 'dielen', 'fliesen', 'fußbodenheizung', 'laminat', 'parkett', 'pvc', 'teppich', 'badewanne', 'dusche', 'kabel', "ablösevereinbarung", 'satellit', 'status', 'dauer', 'PLZ', "m2_pro_pers"]
-cat_features = ["car", "buildings", "bed","stock","fire", "PLZ"]
+cat_features = ["car", "buildings", "bed","stock","fire", "PLZ", "status"]
 num_feat = ['wohnung', 'zimmergröße', 'personen', 'bus', 'ablösevereinbarung', 'dauer']
 num_and_bool_feat = list(set(features) - set(cat_features))
 
+
+def generate_wordcloud(text, name):
+    x, y = np.ogrid[:1000, :1000]
+    mask = (x - 500) ** 2 + (y - 500) ** 2 > 400 ** 2
+    mask = 255 * mask.astype(int)
+    wordcloud = WordCloud(background_color="white", mask=mask).generate(text)
+    plt.imshow(wordcloud, interpolation="bilinear", aspect="equal")
+    plt.axis("off")
+    plt.tight_layout()
+    plt.savefig("static/"+name+".png", bbox_inches='tight',  dpi=150)
+
+
+def convert_none_zero(num):
+    if num is None:
+        return 0
+    return num
 
 def remove_old_shap():
     for filename in os.listdir("static/"):
@@ -49,14 +67,14 @@ def plot_all_errorbars(df, name):
     y1 = df.parameter
     yerr1 = df.standard_error
     fig, ax = plt.subplots()
-    fig.set_figheight(len(x))
+    fig.set_figheight(len(x)/3)
     plt.rc('axes', labelsize=22)
     plt.grid(b=True, which='major', color='#666666', linestyle='-', alpha=0.2)
     trans1 = Affine2D().translate(-0.1, 0.0) + ax.transData
     trans2 = Affine2D().translate(+0.1, 0.0) + ax.transData
     er1 = ax.errorbar(y1, x, xerr=yerr1, marker="o", linestyle="none", transform=trans1)
     ax.axvline(x=0, color="black")
-    ax.set_ylim(-0.1, len(df) - 1 + 0.1)
+    ax.set_ylim(-0.3, len(df) - 1 + 0.3)
     return plt.savefig('static/'+name + '.png', bbox_inches='tight')
 
 def plot_errorbars(df, name):
@@ -64,14 +82,14 @@ def plot_errorbars(df, name):
     y1 = df.parameter
     yerr1 = df.standard_error
     fig, ax = plt.subplots()
-    fig.set_figheight(len(x))
+    fig.set_figheight(len(x)/3)
     plt.rc('axes', labelsize=22)
     plt.grid(b=True, which='major', color='#666666', linestyle='-', alpha=0.2)
     trans1 = Affine2D().translate(-0.1, 0.0) + ax.transData
     trans2 = Affine2D().translate(+0.1, 0.0) + ax.transData
     er1 = ax.errorbar(y1, x, xerr=yerr1, marker="o", linestyle="none", transform=trans1)
     ax.axvline(x=0, color="black")
-    ax.set_ylim(-0.1, len(df) - 1 + 0.1)
+    ax.set_ylim(-0.3, len(df) - 1 + 0.3)
     return plt.savefig('static/'+name + '.png', bbox_inches='tight')
 
 

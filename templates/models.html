@@ -14,8 +14,8 @@ a Support Vector Machine from sklearn has been used.</h2>
 
 <h2> Currently the model hast the following specification: </h2>
 <h2> CatBoostRegressor(iterations=4000, depth=12, loss_function='RMSE', early_stopping_rounds=30)</h2>
-<h2> This results in a RMSE of 66.45 in the validation set (25% of data). Which means the average estimation is about 66 Euros off.</h2>
-<h2> In general the RMSE seems to be pretty high, which means there are a lot of factors that are not explained by
+<h2> This results in a Mean Absolute Error (MAE) of 55 in the validation set (25% of data). Which means the average estimation is about 55 € off.</h2>
+<h2> It seems that the model does quite a good job, however there are a lot of factors that are not explained by
      the metadata. Looking at some observations in detail, often times we can find missing or even false data
     (for example the rent is only on a weekly basis).</h2>
 <h2> You can see in the scatterplot below how the predicted values turned out in relation to the observed ones in the test dataset</h2>
@@ -153,4 +153,8 @@ var layout = {
 Plotly.newPlot('myDiv', data, layout);
 
 </script>
+
+
+
+
 {% endblock %}
